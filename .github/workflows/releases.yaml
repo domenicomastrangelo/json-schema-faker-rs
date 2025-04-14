@@ -11,11 +11,10 @@ jobs:
       matrix:
         target: [x86_64-unknown-linux-musl]
     steps:
-    - uses: actions/checkout@master
-    - name: Compile and release
-      uses: rust-build/rust-build.action@v1.4.4
-      env:
-        GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
-      with:
-        RUSTTARGET: ${{ matrix.target }}
-
+      - uses: actions/checkout@master
+      - name: Compile and release
+        uses: rust-build/rust-build.action@v1.4.4
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          RUSTTARGET: ${{ matrix.target }}
