@@ -199,7 +199,7 @@ const COUNTRY_LIST: [&str; 197] = [
 ];
 
 pub fn generate(rng: &mut impl rand::Rng) -> serde_json::Value {
-    let random_number: usize = rng.gen_range(0..COUNTRY_LIST.len());
+    let random_number: usize = rng.random_range(0..COUNTRY_LIST.len());
 
     serde_json::json!(COUNTRY_LIST[random_number])
 }

@@ -116,7 +116,7 @@ const SURNAME_LIST: [&str; 114] = [
 ];
 
 pub fn generate(rng: &mut impl rand::Rng) -> serde_json::Value {
-    let index = rng.gen_range(0..SURNAME_LIST.len());
+    let index = rng.random_range(0..SURNAME_LIST.len());
 
     serde_json::json!(SURNAME_LIST[index])
 }

@@ -6,7 +6,7 @@ use super::{
 };
 
 pub fn generate(t: &str, p: &Property) -> serde_json::Value {
-    let mut rng = rand::thread_rng();
+    let mut rng = rand::rng();
 
     match t {
         "name" => string_name::generate(&mut rng),

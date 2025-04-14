@@ -10,7 +10,7 @@ pub fn generate(mut rng: &mut impl rand::Rng) -> serde_json::Value {
         _ => return serde_json::json!(null),
     };
 
-    let random_number: u8 = rng.gen_range(50..99);
+    let random_number: u8 = rng.random_range(50..99);
 
     let email = format!("{}.{}{}@example.com", name, surname, random_number);
 

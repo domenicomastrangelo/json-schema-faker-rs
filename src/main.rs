@@ -15,7 +15,8 @@ fn main() {
         std::process::exit(1);
     });
 
-    let f = std::fs::File::open(&Path::new(&path)).unwrap_or_else(|e| {
+    let input_path = Path::new(path.as_str());
+    let f = std::fs::File::open(input_path).unwrap_or_else(|e| {
         eprintln!("Error: {}", e);
         std::process::exit(1);
     });
@@ -24,7 +25,7 @@ fn main() {
 
     let mut buf = String::new();
     reader.read_to_string(&mut buf).unwrap();
-    let desc: Description = match serde_yaml::from_str(&buf) {
+    let desc: Description = match serde_yaml::from_str(buf.as_str()) {
         Ok(desc) => desc,
         Err(e) => {
             eprintln!("Error: {}", e);
@@ -34,7 +35,9 @@ fn main() {
 
     let json_value = render_json_schema(&desc).to_string();
 
-    let f = std::fs::File::create(&Path::new(&format!("{}.json", path))).unwrap_or_else(|e| {
+    let formatted_path = format!("{}.json", path);
+    let output_path = Path::new(formatted_path.as_str());
+    let f = std::fs::File::create(output_path).unwrap_or_else(|e| {
         eprintln!("Error: {}", e);
         std::process::exit(1);
     });
@@ -63,16 +66,13 @@ fn render_json_schema(desc: &Description) -> serde_json::Value {
 fn render_property(prop: &Property) -> serde_json::Value {
     let mut schema_container = Vec::<serde_json::Value>::new();
 
-    let count = match prop.count {
-        Some(count) => count,
-        None => 1,
-    };
+    let count = prop.count.unwrap_or(1);
 
-    let mut rng = rand::thread_rng();
+    let mut rng = rand::rng();
 
     for _ in 0..count {
         let mut schema = serde_json::json!({});
-        let type_ = prop.type_.split(".").nth(0).unwrap_or("");
+        let type_ = prop.type_.split(".").next().unwrap_or("");
         let type_specific = prop.type_.split(".").nth(1).unwrap_or("");
 
         match type_ {

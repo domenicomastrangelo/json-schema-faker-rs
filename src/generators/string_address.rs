@@ -116,7 +116,7 @@ const ADDRESS_LIST: [&str; 114] = [
 ];
 
 pub fn generate(rng: &mut impl rand::Rng) -> serde_json::Value {
-    let address = ADDRESS_LIST[rng.gen_range(0..ADDRESS_LIST.len())];
+    let address = ADDRESS_LIST[rng.random_range(0..ADDRESS_LIST.len())];
 
     serde_json::json!(address)
 }

@@ -116,7 +116,7 @@ const STATE_LIST: [&str; 114] = [
 ];
 
 pub fn generate(rng: &mut impl rand::Rng) -> serde_json::Value {
-    let state = rng.gen_range(0..STATE_LIST.len());
+    let state = rng.random_range(0..STATE_LIST.len());
 
     serde_json::json!(STATE_LIST[state])
 }

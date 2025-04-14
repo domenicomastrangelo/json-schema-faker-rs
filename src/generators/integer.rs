@@ -17,5 +17,5 @@ pub fn generate(p: &Property, rng: &mut impl rand::Rng) -> serde_json::Value {
         max = m.as_i64().unwrap_or(max);
     }
 
-    serde_json::json!(rng.gen_range(min..max))
+    serde_json::json!(rng.random_range(min..max))
 }

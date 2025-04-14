@@ -116,7 +116,7 @@ const JOB_TITLES: [&str; 114] = [
 ];
 
 pub fn generate(rng: &mut impl rand::Rng) -> serde_json::Value {
-    let index = rng.gen_range(0..JOB_TITLES.len());
+    let index = rng.random_range(0..JOB_TITLES.len());
 
     serde_json::json!(JOB_TITLES[index])
 }
